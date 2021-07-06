@@ -107,3 +107,17 @@ def graphs(df):
         plt.show()
 
 
+    
+def razon_de_cambio(x,y):
+
+    
+    r = np.empty((len(y)))
+    r[0] = (y[1]-y[0])/(x[1]-x[0])
+    
+    for i in range(1,len(y)-1):
+        r[i]=(y[i+1]-y[i-1])/(x[i+1]-x[i-1])
+    
+    r[-1]=(y[-1]-y[-2])/(x[-1]-x[-2])
+    
+    return r
+

@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from cli_menu import MenuDisplay
 from utils import read_file
-from analysis import analysis_range, graphs
+from analysis import analysis_range, graphs, razon_de_cambio
 
 
 def funxx():
@@ -40,21 +40,33 @@ if __name__ == "__main__":
             opcion = int(input("""Selecciones una opcion (ingrese el numero):
             1. Rango de análisis
             2. Gráficas
-            2. Tabla de metabolización
-            3. Aceleración metabólica de la glucosa
-            4. Glucosa Promedio
-            5. Glucosa-Meta
-            6. Tendencia
-            7. Salir
+            3. Tabla de metabolización
+            4. Aceleración metabólica de la glucosa
+            5. Glucosa Promedio
+            6. Glucosa-Meta
+            7. Tendencia
+            8. Salir
             """))
 
             if opcion == 1:
                 SAMPLE = analysis_range(df)
+                #print(SAMPLE['Diferencia Horas'])
             elif(len(SAMPLE)==0):
                 raise Exception("Tiene que seleccionar un rango de fechas para seleccionar cualquier otra opcion")
 
             elif opcion == 2:
                 graphs(SAMPLE)
+
+            elif opcion ==3:
+                r=razon_de_cambio(SAMPLE['Diferencia Horas'],SAMPLE['mg/dL'])
+                
+                #tabla_razon_cambio= pd.DataFrame(r,columns=['Razon de cambio'])
+                #tabla_razon_cambio
+                #faltaria agregarle a este df(tabla razon cambio) la condicion (ayuno, desayuno, almuerzo etc)
+                
+            
+
+
             else:
                 print("Opcion invalida, intente de nuevo")
                 raise Exception
