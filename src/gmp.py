@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 from cli_menu import MenuDisplay
 from utils import read_file
 from analysis import analysis_range, graphs, razon_de_cambio
+import numpy as np
 
 
 def funxx():
@@ -58,8 +59,15 @@ if __name__ == "__main__":
                 graphs(SAMPLE)
 
             elif opcion ==3:
-                r=razon_de_cambio(SAMPLE['Diferencia Horas'],SAMPLE['mg/dL'])
+                xy=SAMPLE.to_numpy()
+                mgdL=xy[:,1]#mg
+                condicion=xy[:,3]#condicion
+                diferencia_horas=xy[:,4]#dif horas
                 
+
+
+                r=razon_de_cambio(diferencia_horas,mgdL)
+                r
                 #tabla_razon_cambio= pd.DataFrame(r,columns=['Razon de cambio'])
                 #tabla_razon_cambio
                 #faltaria agregarle a este df(tabla razon cambio) la condicion (ayuno, desayuno, almuerzo etc)
