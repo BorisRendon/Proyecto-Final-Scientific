@@ -7,12 +7,6 @@ import pandas as pd
 import sympy as sp
 import matplotlib.pyplot as plt
 
-
-def funxx():
-    x = input("numero")
-    print(x)
-    return x
-
 if __name__ == "__main__":
 
     SAMPLE = []
@@ -65,7 +59,7 @@ if __name__ == "__main__":
             elif opcion ==3:
                 xy=SAMPLE.to_numpy()
                 mgdL=xy[:,1]#mg
-                fecha=xy[:,2]#fecha
+                fecha=xy[:,0]#fecha
                 condicion=xy[:,3]#condicion
                 diferencia_horas=xy[:,4]#dif horas
                 

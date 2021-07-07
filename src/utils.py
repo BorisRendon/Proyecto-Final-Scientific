@@ -18,12 +18,12 @@ def select_sample(df):
     indexes = []
     n=0
 
-    print(len(df))
+    print(len((df["Diferencia Horas"]).unique()))
 
     if(len(df)<=10):
         return df
 
-    while n < 10:
+    while n < 10 and n<len((df["Diferencia Horas"]).unique()):
         index = np.random.randint(len(df))
         x_val = df["Diferencia Horas"].iloc[index]
         if(x_val not in selected):
