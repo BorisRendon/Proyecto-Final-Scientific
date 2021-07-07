@@ -5,6 +5,7 @@ from analysis import analysis_range, graphs, razon_de_cambio,trapecio,lin_reg,r_
 import numpy as np
 import pandas as pd
 import sympy as sp
+import matplotlib.pyplot as plt
 
 
 def funxx():
@@ -26,7 +27,6 @@ if __name__ == "__main__":
 
             if(int(hours)>23 or int(minutes)>59):
                 raise Exception
-
             break
 
         except:
@@ -38,7 +38,6 @@ if __name__ == "__main__":
     salir = False
 
     while not salir:
-        print(len(SAMPLE)==0)
         try:
             opcion = int(input("""Selecciones una opcion (ingrese el numero):
             1. Rango de análisis
@@ -96,9 +95,6 @@ if __name__ == "__main__":
                 min_value = aceleracion.min()
                 print("Aceleracion de glucosa minima en la sangre:" , min_value)
 
-
-                
-
             elif opcion ==5:
                 #Glucosa promedio
                 xy=SAMPLE.to_numpy()
@@ -113,8 +109,6 @@ if __name__ == "__main__":
                 glucosa = glucosa_promedio/(b-a)
                 print("La glucosa promedio en la sangre para el intervalo de fechas seleecionado es: \n: ", glucosa)
 
-
-
             elif opcion==6:
                 #Glucosa-meta
                 x=sp.symbols('x')
@@ -126,29 +120,36 @@ if __name__ == "__main__":
                 glucosa_meta=reg_lin(glucosa_input)
                 print("La glucosa meta en sangre se alcanzará en:", glucosa_meta)
 
-          
-                
-
-
-
-
-
-
             elif opcion==7:
                 x=sp.symbols('x')
                 xy=SAMPLE.to_numpy()
                 mgdL=xy[:,1]#mg
                 diferencia_horas=xy[:,4]#dif horas
-                prueba1(diferencia_horas,mgdL,op=7)
-                
-                
-                pass
+                regression = lin_reg(diferencia_horas,mgdL)
+                print(str(regression(x)))
+                print("r cuadrado: ",r_squared(regression,diferencia_horas,mgdL))
+
+                plt.figure(figsize = (15, 10))
+                plt.xlabel("Diferencia Horas")
+                plt.ylabel("Glucosa")
+                plt.title('Regresion linear')
+                plt.grid()
+                plt.plot(diferencia_horas,regression(diferencia_horas),'r')
+                plt.plot(diferencia_horas,mgdL, 'bo')
+                plt.show()
+
 
             elif opcion==8:
                 #resumen estadistico
-                
+                print(df['mg/dL'].describe())
+                plt.figure(figsize = (15, 10))
+                plt.title('Histograma Glucosa')
+                plt.grid()
+                plt.hist(df["mg/dL"])
+                plt.show()
+
             elif opcion ==9:
-                pass
+                exit()
             else:
                 print("Opcion invalida, intente de nuevo")
                 raise Exception

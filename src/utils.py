@@ -17,6 +17,12 @@ def select_sample(df):
     selected =set()
     indexes = []
     n=0
+
+    print(len(df))
+
+    if(len(df)<=10):
+        return df
+
     while n < 10:
         index = np.random.randint(len(df))
         x_val = df["Diferencia Horas"].iloc[index]
@@ -24,6 +30,7 @@ def select_sample(df):
             selected.add(x_val)
             indexes.append(index)
             n = n+1
+            print(n)
         else:
             pass
     return df.iloc[indexes]

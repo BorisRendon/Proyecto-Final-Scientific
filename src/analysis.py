@@ -14,9 +14,6 @@ def analysis_range(df):
     min_start_date = ff["Fecha"].iloc[0]
     max_end_date = ff["Fecha"].iloc[-1]
     
-
-    print(min_start_date)
-    print(max_end_date)
     while True:
         try:
         
@@ -38,7 +35,7 @@ def analysis_range(df):
                 
 
             mask = (df['Fecha'] > start_date) & (df['Fecha'] <= end_date)
-
+            
             sample = select_sample(df.loc[mask])
 
             if len(sample)<=0:
@@ -136,7 +133,7 @@ def lin_reg(x,y):
     n = len(x)
     
     m = ( (n*sum_x_y) - (sum_x*sum_y) ) / ( (n*sum_x_squared) - sum_x**2 )
-    b = ( (sum_y*sum_x_squared) - (sum_x)(sum_x_y) ) / ( (n*sum_x_squared) - sum_x*2 )
+    b = ( (sum_y*sum_x_squared) - (sum_x)*(sum_x_y) ) / ( (n*sum_x_squared) - sum_x**2 )
     
     return lambda x: m*x + b
 
@@ -146,13 +143,9 @@ def r_squared(f,x,y):
     sum_of_squares_of_residuals = ((y_predicted - y)**2).sum()
     total_sum_of_squares = ((y - y.mean())**2).sum()
     
-    print(sum_of_squares_of_residuals)
-    print(total_sum_of_squares)
     return 1 - (sum_of_squares_of_residuals/total_sum_of_squares)
 
-
-
-
+    
 #########
 
 def estimate_coef(x, y):
