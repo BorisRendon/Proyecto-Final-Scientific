@@ -121,3 +121,91 @@ def razon_de_cambio(x,y):
     
     return r
 
+
+
+def trapecio(x,y):
+    h = (x[-1]-x[0]) / ((len(x)) - 1)
+    return (h/2)* (y[0] + 2 * sum(y[1:-1]) + y[-1])
+
+#############
+def lin_reg(x,y):
+    sum_x = x.sum()
+    sum_y = y.sum()
+    sum_x_y = x@y
+    sum_x_squared = (x**2).sum()
+    n = len(x)
+    
+    m = ( (n*sum_x_y) - (sum_x*sum_y) ) / ( (n*sum_x_squared) - sum_x**2 )
+    b = ( (sum_y*sum_x_squared) - (sum_x)(sum_x_y) ) / ( (n*sum_x_squared) - sum_x*2 )
+    
+    return lambda x: m*x + b
+
+def r_squared(f,x,y):
+    y_predicted = f(x)
+    
+    sum_of_squares_of_residuals = ((y_predicted - y)**2).sum()
+    total_sum_of_squares = ((y - y.mean())**2).sum()
+    
+    print(sum_of_squares_of_residuals)
+    print(total_sum_of_squares)
+    return 1 - (sum_of_squares_of_residuals/total_sum_of_squares)
+
+
+
+
+#########
+
+def estimate_coef(x, y):
+    n = np.size(x)#obtenemos el numero de observaciones
+ 
+    m_x = np.mean(x)#media de x
+    m_y = np.mean(y)#media de y
+ 
+    SS_xy = np.sum(y*x) - n*m_y*m_x #hacemos el calculo de desviacion
+    SS_xx = np.sum(x*x) - n*m_x*m_x
+ 
+    b_1 = SS_xy / SS_xx#calculamos los coeficientes de regresion
+    b_0 = m_y - b_1*m_x
+ 
+    return (b_0, b_1)
+ 
+def plot_regression_line(x, y, b):
+    plt.scatter(x, y, color = "m",
+               marker = "o", s = 30)#plot de los puntos
+ 
+    y_pred = b[0] + b[1]*x #obtenemos la recta de la regresion
+ 
+    plt.plot(x, y_pred, color = "g")#grafica de la regresion
+    plt.xlabel('Diferencia de Horas')
+    plt.ylabel('mg/dL')
+    plt.grid()
+    plt.title("Diferencia de horas vs mg/dL")
+    plt.show()
+ 
+def prueba1(x1,y1,op):
+    
+    b = estimate_coef(x1, y1)
+    x = sp.symbols('x')
+    
+    
+
+
+    print("La funcion de regresion lineal es: \n y= {} {} + ({})".format(b[1],x,b[0]))
+    
+    prueba1.variable1=b[1]
+    prueba1.variable2=b[0]
+    if op == 6:
+        pass
+    else:
+
+        plot_regression_line(x1, y1, b)
+        
+
+def reg_lin(y):
+    #y=mx+b
+    #return prueba1.variable1 * x + (prueba1.variable2)
+    return (y-prueba1.variable2)/prueba1.variable1
+    
+    
+
+    
