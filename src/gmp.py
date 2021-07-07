@@ -50,7 +50,7 @@ if __name__ == "__main__":
                 #print(SAMPLE['Diferencia Horas'])
                 SAMPLE=SAMPLE.sort_values(by=['Diferencia Horas'])
 
-            elif(len(SAMPLE)==0):
+            elif(len(SAMPLE)==0 and opcion!=9):
                 raise Exception("Tiene que seleccionar un rango de fechas para seleccionar cualquier otra opcion")
 
             elif opcion == 2:
@@ -135,7 +135,16 @@ if __name__ == "__main__":
 
             elif opcion==8:
                 #resumen estadistico
-                print(df['mg/dL'].describe())
+                print(
+                    f"""
+                    media: {df['mg/dL'].mean()}
+                    mediana: {df['mg/dL'].median()}
+                    moda: {df['mg/dL'].mode()[0]}
+                    valor maximo: {df['mg/dL'].max()}
+                    valor minimo: {df['mg/dL'].min()}
+                    std: {df['mg/dL'].std()}
+                    """
+                )
                 plt.figure(figsize = (15, 10))
                 plt.title('Histograma Glucosa')
                 plt.grid()
